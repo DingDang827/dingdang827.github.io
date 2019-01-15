@@ -14,8 +14,6 @@ A [Bootstrap 4](https://getbootstrap.com/) start up project for [Github Pages](h
 
 ### Fork this repository
 
-[Name of Link]({{ site.baseurl }}{% post_url 2018-12-28-test %})
-
 [Go to this repository page on Github](https://github.com/nicolas-van/bootstrap-4-github-pages) and click the `Fork` button on the top right of the page.
 
 ### Rename your forked repository
