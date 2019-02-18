@@ -3,4 +3,4 @@ layout: home
 title: DingDang's Blog
 ---
 
-歡迎來到DingDang's Blog，這裡主要會發布一些我學習上的一些紀錄
+歡迎來到我的部落格，這邊主要是紀錄一些基礎程式語言的筆記
