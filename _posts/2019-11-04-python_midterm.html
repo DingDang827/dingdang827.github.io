@@ -13836,7 +13836,15 @@ else:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="if-&#30340;&#31684;&#20363;">if &#30340;&#31684;&#20363;<a class="anchor-link" href="#if-&#30340;&#31684;&#20363;">&#182;</a></h4>
+<p><strong>is 和 == 有差異 有興趣可以去google</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="if-&#30340;&#31684;&#20363;">if &#30340;&#31684;&#20363;<a class="anchor-link" href="#if-&#30340;&#31684;&#20363;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14469,6 +14477,4053 @@ import 套件名稱 as 綽號</code></pre>
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Numpy,Pandas,Matplotlib-&#26377;&#26178;&#38291;&#20877;&#35036;">Numpy,Pandas,Matplotlib &#26377;&#26178;&#38291;&#20877;&#35036;<a class="anchor-link" href="#Numpy,Pandas,Matplotlib-&#26377;&#26178;&#38291;&#20877;&#35036;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20316;&#26989;&#19968;">&#20316;&#26989;&#19968;<a class="anchor-link" href="#&#20316;&#26989;&#19968;">&#182;</a></h1><ul>
+<li>將資料讀進 python</li>
+<li>讀進去的資料必須僅存日期、國家以及資料本身（其他欄位皆不需要） </li>
+<li>資料錯誤檢測與處理 </li>
+<li>繪製經濟成長率走勢圖 (同時繪製美國、西班牙與德國即可)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#引入我們需要使用的套件</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#23559;&#36039;&#26009;&#35712;&#36914;python">&#23559;&#36039;&#26009;&#35712;&#36914;python<a class="anchor-link" href="#&#23559;&#36039;&#26009;&#35712;&#36914;python">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;OECDoutlook2019.xls&#39;</span><span class="p">,</span><span class="n">sheet_name</span> <span class="o">=</span> <span class="s1">&#39;OECD.Stat export&#39;</span><span class="p">,</span>
+                        <span class="n">skiprows</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>我們使用pd.read_excel來讀取我們的資料</p>
+<ul>
+<li><p>'OECDoutlook2019.xls'</p>
+<ul>
+<li>如果你將要讀取的檔案和程式的檔案放在一起就不需要寫路徑了，這樣的好處是就算換了一台電腦也可以順利執行</li>
+</ul>
+</li>
+<li><p>sheet_name = 'OECD.Stat export'</p>
+<ul>
+<li>就是輸入我們excel資料表上的名字</li>
+</ul>
+</li>
+<li><p>skiprows = [0,1,2,3]</p>
+<ul>
+<li>意思是我們不需要這個資料表的前四列</li>
+</ul>
+</li>
+<li><p>header = 0</p>
+<ul>
+<li>指定skip後的第一列當作我們行的名字，以這個檔案來說，我們將前四列都skip掉了，所以第五列會成為我們行(column)的名字</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[39]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Unnamed: 1</th>
+      <th>Unnamed: 2</th>
+      <th>Q1-2001</th>
+      <th>Q2-2001</th>
+      <th>Q3-2001</th>
+      <th>Q4-2001</th>
+      <th>Q1-2002</th>
+      <th>Q2-2002</th>
+      <th>Q3-2002</th>
+      <th>...</th>
+      <th>Q3-2018</th>
+      <th>Q4-2018</th>
+      <th>Q1-2019</th>
+      <th>Q2-2019</th>
+      <th>Q3-2019</th>
+      <th>Q4-2019</th>
+      <th>Q1-2020</th>
+      <th>Q2-2020</th>
+      <th>Q3-2020</th>
+      <th>Q4-2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Country</td>
+      <td>Unit</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Australia</td>
+      <td>Percentage, 2016-17</td>
+      <td>i</td>
+      <td>7.284177</td>
+      <td>0.586820</td>
+      <td>3.902116</td>
+      <td>1.238723</td>
+      <td>6.521458</td>
+      <td>0.218274</td>
+      <td>3.822407</td>
+      <td>...</td>
+      <td>3.102319</td>
+      <td>4.077926</td>
+      <td>1.297008</td>
+      <td>2.585933e+00</td>
+      <td>2.375830e+00</td>
+      <td>2.365768e+00</td>
+      <td>2.505148</td>
+      <td>2.583722</td>
+      <td>2.663560</td>
+      <td>2.754584</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Austria</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>1.753404</td>
+      <td>1.843686</td>
+      <td>1.123049</td>
+      <td>2.706553</td>
+      <td>-1.943428</td>
+      <td>3.400707</td>
+      <td>1.984475</td>
+      <td>...</td>
+      <td>2.125897</td>
+      <td>0.522983</td>
+      <td>2.013986</td>
+      <td>1.000000e+11</td>
+      <td>1.000000e+11</td>
+      <td>1.000000e+11</td>
+      <td>2.612051</td>
+      <td>1.976374</td>
+      <td>1.660429</td>
+      <td>-0.212443</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Belgium</td>
+      <td>Percentage, 2016</td>
+      <td>i</td>
+      <td>-0.564691</td>
+      <td>6.291900</td>
+      <td>1.132541</td>
+      <td>1.580085</td>
+      <td>1.399343</td>
+      <td>0.903091</td>
+      <td>1.547440</td>
+      <td>...</td>
+      <td>-0.817521</td>
+      <td>4.252752</td>
+      <td>-0.087326</td>
+      <td>1.711886e+00</td>
+      <td>1.510796e+00</td>
+      <td>1.510852e+00</td>
+      <td>1.928811</td>
+      <td>2.113820</td>
+      <td>2.116804</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Canada</td>
+      <td>Percentage, 2012</td>
+      <td>i</td>
+      <td>3.939644</td>
+      <td>-0.058260</td>
+      <td>-4.528322</td>
+      <td>-3.158633</td>
+      <td>1.813340</td>
+      <td>7.198236</td>
+      <td>2.694707</td>
+      <td>...</td>
+      <td>2.279631</td>
+      <td>-3.057265</td>
+      <td>1.433482</td>
+      <td>1.654673e+00</td>
+      <td>1.655228e+00</td>
+      <td>1.694995e+00</td>
+      <td>1.695121</td>
+      <td>1.695256</td>
+      <td>1.695386</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Chile</td>
+      <td>Percentage, 2013</td>
+      <td>i</td>
+      <td>0.418974</td>
+      <td>6.542847</td>
+      <td>6.572205</td>
+      <td>2.570137</td>
+      <td>-0.769914</td>
+      <td>2.528195</td>
+      <td>8.925561</td>
+      <td>...</td>
+      <td>0.694751</td>
+      <td>1.904647</td>
+      <td>1.908810</td>
+      <td>2.976578e+00</td>
+      <td>3.223315e+00</td>
+      <td>3.138834e+00</td>
+      <td>3.197454</td>
+      <td>3.134469</td>
+      <td>3.011001</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Estonia</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>-1.292546</td>
+      <td>10.955903</td>
+      <td>4.843683</td>
+      <td>8.892631</td>
+      <td>2.461343</td>
+      <td>4.028246</td>
+      <td>2.125138</td>
+      <td>...</td>
+      <td>8.737726</td>
+      <td>-0.008515</td>
+      <td>4.537370</td>
+      <td>3.072695e+00</td>
+      <td>3.418312e+00</td>
+      <td>3.417273e+00</td>
+      <td>NaN</td>
+      <td>3.316955</td>
+      <td>3.314993</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Finland</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>8.441849</td>
+      <td>0.726557</td>
+      <td>0.471672</td>
+      <td>-0.342922</td>
+      <td>2.170213</td>
+      <td>1.910587</td>
+      <td>0.275371</td>
+      <td>...</td>
+      <td>3.020987</td>
+      <td>0.657962</td>
+      <td>6.680069</td>
+      <td>NaN</td>
+      <td>1.697027e+00</td>
+      <td>1.697698e+00</td>
+      <td>1.898746</td>
+      <td>1.898785</td>
+      <td>1.914648</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>France</td>
+      <td>Percentage, 2014</td>
+      <td>i</td>
+      <td>1.643698</td>
+      <td>2.462088</td>
+      <td>1.803372</td>
+      <td>2.194097</td>
+      <td>2.712702</td>
+      <td>1.220012</td>
+      <td>1.904961</td>
+      <td>...</td>
+      <td>1.511904</td>
+      <td>1.273151</td>
+      <td>1.613411</td>
+      <td>2.999693e-01</td>
+      <td>1.294233e+00</td>
+      <td>1.281088e+00</td>
+      <td>1.243538</td>
+      <td>1.257725</td>
+      <td>1.194347</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Germany</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>2.794677</td>
+      <td>0.904227</td>
+      <td>2.375727</td>
+      <td>2.597700</td>
+      <td>1.109621</td>
+      <td>-0.904783</td>
+      <td>2.743560</td>
+      <td>...</td>
+      <td>2.512478</td>
+      <td>1.196120</td>
+      <td>1.454679</td>
+      <td>2.312661e+00</td>
+      <td>2.014838e+00</td>
+      <td>2.005030e+00</td>
+      <td>2.049350</td>
+      <td>2.053244</td>
+      <td>2.057059</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Greece</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>8.277442</td>
+      <td>5.053384</td>
+      <td>3.615555</td>
+      <td>2.438599</td>
+      <td>4.430304</td>
+      <td>1.462776</td>
+      <td>1.773334</td>
+      <td>...</td>
+      <td>0.715774</td>
+      <td>-0.279772</td>
+      <td>-0.292100</td>
+      <td>1.892699e+00</td>
+      <td>1.448238e+00</td>
+      <td>1.214746e+00</td>
+      <td>1.059103</td>
+      <td>1.060094</td>
+      <td>1.061413</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Hungary</td>
+      <td>Percentage, 2005</td>
+      <td>i</td>
+      <td>13.429390</td>
+      <td>20.502837</td>
+      <td>4.537456</td>
+      <td>-1.027711</td>
+      <td>23.529553</td>
+      <td>-0.727833</td>
+      <td>9.041305</td>
+      <td>...</td>
+      <td>4.754904</td>
+      <td>3.691621</td>
+      <td>3.053745</td>
+      <td>5.527772e+00</td>
+      <td>4.603971e+00</td>
+      <td>4.415826e+00</td>
+      <td>3.954161</td>
+      <td>4.036985</td>
+      <td>3.715176</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Iceland</td>
+      <td>Percentage, 2005</td>
+      <td>i</td>
+      <td>7.480922</td>
+      <td>24.587114</td>
+      <td>9.515809</td>
+      <td>8.484294</td>
+      <td>8.283149</td>
+      <td>0.219034</td>
+      <td>-1.446021</td>
+      <td>...</td>
+      <td>0.081728</td>
+      <td>3.108092</td>
+      <td>1.506470</td>
+      <td>2.225134e+00</td>
+      <td>3.674185e+00</td>
+      <td>3.118547e+00</td>
+      <td>3.783420</td>
+      <td>3.574693</td>
+      <td>3.364237</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Ireland</td>
+      <td>Percentage, 2016</td>
+      <td>i</td>
+      <td>11.705254</td>
+      <td>2.163087</td>
+      <td>5.327359</td>
+      <td>2.707195</td>
+      <td>7.691995</td>
+      <td>6.274787</td>
+      <td>4.885658</td>
+      <td>...</td>
+      <td>-0.127767</td>
+      <td>7.855807</td>
+      <td>-2.140498</td>
+      <td>2.216549e+00</td>
+      <td>2.214839e+00</td>
+      <td>2.235308e+00</td>
+      <td>2.261919</td>
+      <td>NaN</td>
+      <td>2.304283</td>
+      <td>2.315225</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Israel</td>
+      <td>Percentage, 2015</td>
+      <td>i</td>
+      <td>-1.605867</td>
+      <td>4.765883</td>
+      <td>1.905117</td>
+      <td>-0.442651</td>
+      <td>8.465192</td>
+      <td>5.426157</td>
+      <td>7.484023</td>
+      <td>...</td>
+      <td>4.121050</td>
+      <td>2.987324</td>
+      <td>0.894029</td>
+      <td>1.247229e+00</td>
+      <td>1.016426e+00</td>
+      <td>1.108865e+00</td>
+      <td>1.461003</td>
+      <td>1.584647</td>
+      <td>1.607338</td>
+      <td>1.607395</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Italy</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>4.661832</td>
+      <td>3.368383</td>
+      <td>2.907596</td>
+      <td>2.565416</td>
+      <td>NaN</td>
+      <td>1.710153</td>
+      <td>3.391662</td>
+      <td>...</td>
+      <td>-0.930207</td>
+      <td>1.411025</td>
+      <td>-0.098981</td>
+      <td>5.968293e-01</td>
+      <td>8.274307e-01</td>
+      <td>8.862128e-01</td>
+      <td>1.460655</td>
+      <td>1.056652</td>
+      <td>1.136165</td>
+      <td>1.247346</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Japan</td>
+      <td>Percentage, 2011</td>
+      <td>i</td>
+      <td>0.548228</td>
+      <td>-3.022066</td>
+      <td>-1.319448</td>
+      <td>-1.050956</td>
+      <td>0.372135</td>
+      <td>-3.926083</td>
+      <td>-1.526854</td>
+      <td>...</td>
+      <td>0.287521</td>
+      <td>-0.277633</td>
+      <td>0.026387</td>
+      <td>1.778304e-01</td>
+      <td>3.215508e-01</td>
+      <td>2.380167e+00</td>
+      <td>0.616318</td>
+      <td>0.922925</td>
+      <td>0.802389</td>
+      <td>0.905196</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Korea</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>10.492756</td>
+      <td>4.097604</td>
+      <td>0.891421</td>
+      <td>-7.992367</td>
+      <td>16.748880</td>
+      <td>2.534687</td>
+      <td>-3.957101</td>
+      <td>...</td>
+      <td>3.313425</td>
+      <td>-5.609358</td>
+      <td>4.607391</td>
+      <td>-8.998197e-01</td>
+      <td>NaN</td>
+      <td>1.989893e+00</td>
+      <td>3.154322</td>
+      <td>3.306548</td>
+      <td>3.045099</td>
+      <td>2.609690</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Lithuania</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>0.551401</td>
+      <td>2.670709</td>
+      <td>-7.732376</td>
+      <td>-1.077672</td>
+      <td>4.774230</td>
+      <td>2.203116</td>
+      <td>-1.492601</td>
+      <td>...</td>
+      <td>5.435888</td>
+      <td>4.989597</td>
+      <td>NaN</td>
+      <td>1.934483e+00</td>
+      <td>2.102717e+00</td>
+      <td>2.200528e+00</td>
+      <td>2.430309</td>
+      <td>2.503542</td>
+      <td>2.536115</td>
+      <td>2.544803</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Luxembourg</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>-5.414749</td>
+      <td>2.906080</td>
+      <td>3.038937</td>
+      <td>9.110504</td>
+      <td>-1.671663</td>
+      <td>1.794839</td>
+      <td>-1.141682</td>
+      <td>...</td>
+      <td>7.113240</td>
+      <td>0.347588</td>
+      <td>2.612784</td>
+      <td>2.685371e+00</td>
+      <td>2.419844e+00</td>
+      <td>2.071930e+00</td>
+      <td>2.112131</td>
+      <td>2.053481</td>
+      <td>2.176917</td>
+      <td>2.177312</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Mexico</td>
+      <td>Percentage, 2013</td>
+      <td>i</td>
+      <td>5.001431</td>
+      <td>4.611531</td>
+      <td>3.982935</td>
+      <td>2.502540</td>
+      <td>2.355015</td>
+      <td>13.400034</td>
+      <td>6.834254</td>
+      <td>...</td>
+      <td>4.819412</td>
+      <td>4.823218</td>
+      <td>3.342721</td>
+      <td>3.183614e+00</td>
+      <td>4.380341e+00</td>
+      <td>NaN</td>
+      <td>3.870882</td>
+      <td>4.492905</td>
+      <td>4.037038</td>
+      <td>3.290558</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Netherlands</td>
+      <td>Percentage, 2015</td>
+      <td>i</td>
+      <td>9.098989</td>
+      <td>1.206113</td>
+      <td>2.351424</td>
+      <td>2.949048</td>
+      <td>7.356153</td>
+      <td>2.845655</td>
+      <td>3.498398</td>
+      <td>...</td>
+      <td>3.924947</td>
+      <td>2.278144</td>
+      <td>4.053684</td>
+      <td>1.156543e+00</td>
+      <td>1.266542e+00</td>
+      <td>1.454703e+00</td>
+      <td>1.431075</td>
+      <td>1.389415</td>
+      <td>1.408004</td>
+      <td>1.559102</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>New Zealand</td>
+      <td>Percentage, 2009-10</td>
+      <td>i</td>
+      <td>5.223518</td>
+      <td>1.397072</td>
+      <td>-0.761089</td>
+      <td>7.211997</td>
+      <td>0.714290</td>
+      <td>-3.979821</td>
+      <td>3.189140</td>
+      <td>...</td>
+      <td>1.477078</td>
+      <td>-1.112715</td>
+      <td>1.971666</td>
+      <td>2.223423e+00</td>
+      <td>2.182429e+00</td>
+      <td>2.308265e+00</td>
+      <td>2.061495</td>
+      <td>2.060822</td>
+      <td>2.000793</td>
+      <td>2.020382</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Norway</td>
+      <td>Percentage, 2016</td>
+      <td>i</td>
+      <td>-5.810703</td>
+      <td>4.190449</td>
+      <td>-10.482211</td>
+      <td>-10.037097</td>
+      <td>-0.259495</td>
+      <td>5.154770</td>
+      <td>5.066788</td>
+      <td>...</td>
+      <td>7.815244</td>
+      <td>-2.864203</td>
+      <td>1.085902</td>
+      <td>2.786046e+00</td>
+      <td>2.193078e+00</td>
+      <td>2.091621e+00</td>
+      <td>2.219392</td>
+      <td>2.213165</td>
+      <td>2.308482</td>
+      <td>2.308242</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Portugal</td>
+      <td>Percentage, 2011</td>
+      <td>i</td>
+      <td>4.254196</td>
+      <td>3.979011</td>
+      <td>3.278694</td>
+      <td>4.816982</td>
+      <td>3.881589</td>
+      <td>4.660296</td>
+      <td>4.506668</td>
+      <td>...</td>
+      <td>2.068247</td>
+      <td>0.721810</td>
+      <td>1.070948</td>
+      <td>1.139838e+00</td>
+      <td>1.206458e+00</td>
+      <td>1.484498e+00</td>
+      <td>1.605287</td>
+      <td>1.634936</td>
+      <td>NaN</td>
+      <td>1.914273</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Slovenia</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>10.207628</td>
+      <td>9.002373</td>
+      <td>8.022899</td>
+      <td>6.387818</td>
+      <td>10.993329</td>
+      <td>5.655310</td>
+      <td>5.930614</td>
+      <td>...</td>
+      <td>0.981445</td>
+      <td>-0.311881</td>
+      <td>3.480273</td>
+      <td>3.454422e+00</td>
+      <td>3.531324e+00</td>
+      <td>3.515417e+00</td>
+      <td>2.145643</td>
+      <td>2.185724</td>
+      <td>2.217527</td>
+      <td>2.249290</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Spain</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>4.055150</td>
+      <td>4.638209</td>
+      <td>3.856981</td>
+      <td>4.334684</td>
+      <td>3.735008</td>
+      <td>4.622419</td>
+      <td>3.902112</td>
+      <td>...</td>
+      <td>0.631539</td>
+      <td>1.765888</td>
+      <td>-1.266911</td>
+      <td>1.793563e+00</td>
+      <td>1.682854e+00</td>
+      <td>1.550855e+00</td>
+      <td>1.395929</td>
+      <td>1.524915</td>
+      <td>1.546414</td>
+      <td>1.545276</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Sweden</td>
+      <td>Percentage, 2017</td>
+      <td>i</td>
+      <td>2.533316</td>
+      <td>6.339310</td>
+      <td>-2.495971</td>
+      <td>5.062199</td>
+      <td>0.371995</td>
+      <td>1.665477</td>
+      <td>0.497042</td>
+      <td>...</td>
+      <td>2.002892</td>
+      <td>3.351290</td>
+      <td>1.435335</td>
+      <td>2.040703e+00</td>
+      <td>2.083122e+00</td>
+      <td>2.125311e+00</td>
+      <td>2.146317</td>
+      <td>2.146011</td>
+      <td>2.145717</td>
+      <td>2.145417</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Switzerland</td>
+      <td>Percentage, 2010</td>
+      <td>i</td>
+      <td>0.695001</td>
+      <td>1.453607</td>
+      <td>-0.414302</td>
+      <td>-0.597514</td>
+      <td>-1.353214</td>
+      <td>0.012614</td>
+      <td>0.820880</td>
+      <td>...</td>
+      <td>1.180816</td>
+      <td>0.659118</td>
+      <td>-1.225363</td>
+      <td>3.758145e-01</td>
+      <td>5.636064e-01</td>
+      <td>7.303980e-01</td>
+      <td>0.895692</td>
+      <td>0.921188</td>
+      <td>1.121938</td>
+      <td>1.282341</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>United Kingdom</td>
+      <td>Percentage, 2016</td>
+      <td>i</td>
+      <td>-1.776274</td>
+      <td>4.086730</td>
+      <td>-1.679954</td>
+      <td>1.729567</td>
+      <td>3.132745</td>
+      <td>2.354855</td>
+      <td>3.031402</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>1.785203</td>
+      <td>1.874274</td>
+      <td>3.160031e+00</td>
+      <td>2.668156e+00</td>
+      <td>1.902280e+00</td>
+      <td>1.867704</td>
+      <td>1.882089</td>
+      <td>1.850401</td>
+      <td>1.840400</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>United States</td>
+      <td>Percentage, 2012</td>
+      <td>i</td>
+      <td>2.467399</td>
+      <td>2.441736</td>
+      <td>1.618895</td>
+      <td>1.329427</td>
+      <td>1.324505</td>
+      <td>1.441362</td>
+      <td>1.855863</td>
+      <td>...</td>
+      <td>1.507607</td>
+      <td>1.860653</td>
+      <td>0.648755</td>
+      <td>1.730522e+00</td>
+      <td>1.950003e+00</td>
+      <td>2.046771e+00</td>
+      <td>2.176079</td>
+      <td>2.235905</td>
+      <td>2.148913</td>
+      <td>2.087648</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>OECD - Total</td>
+      <td>Percentage, 2015</td>
+      <td>i</td>
+      <td>3.825155</td>
+      <td>3.743623</td>
+      <td>1.764940</td>
+      <td>2.125546</td>
+      <td>3.017027</td>
+      <td>1.742564</td>
+      <td>2.515656</td>
+      <td>...</td>
+      <td>2.717225</td>
+      <td>1.724237</td>
+      <td>1.479883</td>
+      <td>2.584664e+00</td>
+      <td>2.333773e+00</td>
+      <td>2.029959e+00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.443399</td>
+      <td>1.850494</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Data extracted on 28 Oct 2019 02:08 UTC (GMT) ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>33 rows × 83 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#36039;&#26009;&#21069;&#34389;&#29702;">&#36039;&#26009;&#21069;&#34389;&#29702;<a class="anchor-link" href="#&#36039;&#26009;&#21069;&#34389;&#29702;">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>我們先將矩陣轉置，讓一個國家歷年的成長率變成以行來展示</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">T</span> <span class="c1">#將我們的資料轉置</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+      <th>32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Country</td>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>...</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+      <td>Data extracted on 28 Oct 2019 02:08 UTC (GMT) ...</td>
+    </tr>
+    <tr>
+      <th>Unnamed: 1</th>
+      <td>Unit</td>
+      <td>Percentage, 2016-17</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2012</td>
+      <td>Percentage, 2013</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2014</td>
+      <td>Percentage, 2010</td>
+      <td>...</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2011</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2017</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2012</td>
+      <td>Percentage, 2015</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Unnamed: 2</th>
+      <td>NaN</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>...</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>NaN</td>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>...</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>NaN</td>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>...</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>NaN</td>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>...</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>NaN</td>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>...</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2002</th>
+      <td>NaN</td>
+      <td>6.52146</td>
+      <td>-1.94343</td>
+      <td>1.39934</td>
+      <td>1.81334</td>
+      <td>-0.769914</td>
+      <td>2.46134</td>
+      <td>2.17021</td>
+      <td>2.7127</td>
+      <td>1.10962</td>
+      <td>...</td>
+      <td>-0.259495</td>
+      <td>3.88159</td>
+      <td>10.9933</td>
+      <td>3.73501</td>
+      <td>0.371995</td>
+      <td>-1.35321</td>
+      <td>3.13274</td>
+      <td>1.3245</td>
+      <td>3.01703</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2002</th>
+      <td>NaN</td>
+      <td>0.218274</td>
+      <td>3.40071</td>
+      <td>0.903091</td>
+      <td>7.19824</td>
+      <td>2.52819</td>
+      <td>4.02825</td>
+      <td>1.91059</td>
+      <td>1.22001</td>
+      <td>-0.904783</td>
+      <td>...</td>
+      <td>5.15477</td>
+      <td>4.6603</td>
+      <td>5.65531</td>
+      <td>4.62242</td>
+      <td>1.66548</td>
+      <td>0.0126139</td>
+      <td>2.35485</td>
+      <td>1.44136</td>
+      <td>1.74256</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2002</th>
+      <td>NaN</td>
+      <td>3.82241</td>
+      <td>1.98448</td>
+      <td>1.54744</td>
+      <td>2.69471</td>
+      <td>8.92556</td>
+      <td>2.12514</td>
+      <td>0.275371</td>
+      <td>1.90496</td>
+      <td>2.74356</td>
+      <td>...</td>
+      <td>5.06679</td>
+      <td>4.50667</td>
+      <td>5.93061</td>
+      <td>3.90211</td>
+      <td>0.497042</td>
+      <td>0.82088</td>
+      <td>3.0314</td>
+      <td>1.85586</td>
+      <td>2.51566</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2002</th>
+      <td>NaN</td>
+      <td>3.45897</td>
+      <td>0.396027</td>
+      <td>2.28272</td>
+      <td>5.17462</td>
+      <td>5.16662</td>
+      <td>7.90082</td>
+      <td>-0.0220655</td>
+      <td>2.29897</td>
+      <td>1.10758</td>
+      <td>...</td>
+      <td>-1.54951</td>
+      <td>4.0944</td>
+      <td>4.7764</td>
+      <td>3.92425</td>
+      <td>2.12841</td>
+      <td>0.808477</td>
+      <td>3.44869</td>
+      <td>2.28634</td>
+      <td>2.72094</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2003</th>
+      <td>NaN</td>
+      <td>3.71771</td>
+      <td>1.95176</td>
+      <td>NaN</td>
+      <td>5.69313</td>
+      <td>1.88181</td>
+      <td>3.20062</td>
+      <td>1.38303</td>
+      <td>1.42582</td>
+      <td>1.58413</td>
+      <td>...</td>
+      <td>12.4375</td>
+      <td>1.64461</td>
+      <td>6.49137</td>
+      <td>4.0532</td>
+      <td>3.78765</td>
+      <td>2.21439</td>
+      <td>3.16011</td>
+      <td>1.83131</td>
+      <td>2.50574</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2003</th>
+      <td>NaN</td>
+      <td>1.96457</td>
+      <td>0.231816</td>
+      <td>2.82206</td>
+      <td>-3.32234</td>
+      <td>4.125</td>
+      <td>7.15551</td>
+      <td>-2.65795</td>
+      <td>2.11163</td>
+      <td>0.164628</td>
+      <td>...</td>
+      <td>-9.04564</td>
+      <td>6.51164</td>
+      <td>7.17666</td>
+      <td>3.55126</td>
+      <td>-0.416632</td>
+      <td>1.10049</td>
+      <td>-0.28808</td>
+      <td>1.18114</td>
+      <td>1.25014</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2003</th>
+      <td>NaN</td>
+      <td>3.29662</td>
+      <td>1.23338</td>
+      <td>1.66684</td>
+      <td>5.23301</td>
+      <td>4.19458</td>
+      <td>-4.70258</td>
+      <td>1.32152</td>
+      <td>2.1377</td>
+      <td>2.80081</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.15448</td>
+      <td>4.4124</td>
+      <td>2.06507</td>
+      <td>0.711387</td>
+      <td>2.00158</td>
+      <td>2.1849</td>
+      <td>2.24983</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2003</th>
+      <td>NaN</td>
+      <td>2.8825</td>
+      <td>1.4105</td>
+      <td>2.68566</td>
+      <td>1.8787</td>
+      <td>9.42121</td>
+      <td>13.1783</td>
+      <td>1.03763</td>
+      <td>1.45306</td>
+      <td>-0.807227</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.09673</td>
+      <td>2.84407</td>
+      <td>0.711058</td>
+      <td>0.348149</td>
+      <td>4.1238</td>
+      <td>2.38466</td>
+      <td>1.871</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2004</th>
+      <td>NaN</td>
+      <td>5.31442</td>
+      <td>5.24906</td>
+      <td>2.24869</td>
+      <td>4.48751</td>
+      <td>8.13399</td>
+      <td>5.4976</td>
+      <td>1.61906</td>
+      <td>1.90096</td>
+      <td>2.25359</td>
+      <td>...</td>
+      <td>4.58863</td>
+      <td>-0.689066</td>
+      <td>3.97468</td>
+      <td>4.15654</td>
+      <td>-1.25337</td>
+      <td>-0.322579</td>
+      <td>0.92722</td>
+      <td>3.01093</td>
+      <td>2.8639</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2004</th>
+      <td>NaN</td>
+      <td>3.17353</td>
+      <td>-1.29123</td>
+      <td>0.423612</td>
+      <td>5.14169</td>
+      <td>9.54265</td>
+      <td>-1.33334</td>
+      <td>-1.06906</td>
+      <td>0.830579</td>
+      <td>1.59959</td>
+      <td>...</td>
+      <td>7.82222</td>
+      <td>4.44186</td>
+      <td>1.09081</td>
+      <td>4.17909</td>
+      <td>1.79204</td>
+      <td>0.520121</td>
+      <td>5.20805</td>
+      <td>3.30306</td>
+      <td>3.06587</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2004</th>
+      <td>NaN</td>
+      <td>3.39548</td>
+      <td>1.0382</td>
+      <td>2.48114</td>
+      <td>2.29918</td>
+      <td>8.81168</td>
+      <td>7.58503</td>
+      <td>1.68185</td>
+      <td>1.2703</td>
+      <td>0.547987</td>
+      <td>...</td>
+      <td>15.3791</td>
+      <td>2.40255</td>
+      <td>4.53384</td>
+      <td>3.95076</td>
+      <td>2.4045</td>
+      <td>-0.0746218</td>
+      <td>0.902085</td>
+      <td>2.63984</td>
+      <td>2.72803</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2004</th>
+      <td>NaN</td>
+      <td>3.847</td>
+      <td>1.66132</td>
+      <td>2.29331</td>
+      <td>1.74203</td>
+      <td>5.89976</td>
+      <td>8.33794</td>
+      <td>0.0985838</td>
+      <td>2.33439</td>
+      <td>-0.692747</td>
+      <td>...</td>
+      <td>8.69554</td>
+      <td>6.19956</td>
+      <td>4.39719</td>
+      <td>4.73629</td>
+      <td>-1.88855</td>
+      <td>0.897426</td>
+      <td>2.55195</td>
+      <td>3.12106</td>
+      <td>2.90181</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2005</th>
+      <td>NaN</td>
+      <td>4.10825</td>
+      <td>8.15774</td>
+      <td>1.99216</td>
+      <td>2.50626</td>
+      <td>7.81026</td>
+      <td>3.87516</td>
+      <td>0.149751</td>
+      <td>2.10659</td>
+      <td>1.88359</td>
+      <td>...</td>
+      <td>0.120925</td>
+      <td>-0.405079</td>
+      <td>-1.84424</td>
+      <td>3.92259</td>
+      <td>0.144476</td>
+      <td>0.569483</td>
+      <td>1.6917</td>
+      <td>3.20641</td>
+      <td>1.54007</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2005</th>
+      <td>NaN</td>
+      <td>6.24473</td>
+      <td>-0.194997</td>
+      <td>1.98279</td>
+      <td>2.69469</td>
+      <td>4.55557</td>
+      <td>9.95663</td>
+      <td>2.68358</td>
+      <td>2.26396</td>
+      <td>0.256603</td>
+      <td>...</td>
+      <td>14.7743</td>
+      <td>4.67599</td>
+      <td>3.08526</td>
+      <td>4.38013</td>
+      <td>1.4577</td>
+      <td>0.213023</td>
+      <td>5.92374</td>
+      <td>2.83087</td>
+      <td>2.46104</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2005</th>
+      <td>NaN</td>
+      <td>6.04373</td>
+      <td>0.938574</td>
+      <td>2.24562</td>
+      <td>5.89489</td>
+      <td>10.3375</td>
+      <td>3.90751</td>
+      <td>1.06704</td>
+      <td>1.23753</td>
+      <td>0.761321</td>
+      <td>...</td>
+      <td>10.245</td>
+      <td>4.44449</td>
+      <td>-0.87733</td>
+      <td>3.31769</td>
+      <td>2.33698</td>
+      <td>2.16768</td>
+      <td>-0.821748</td>
+      <td>3.66636</td>
+      <td>2.64944</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2005</th>
+      <td>NaN</td>
+      <td>4.33065</td>
+      <td>1.69215</td>
+      <td>3.49819</td>
+      <td>5.11934</td>
+      <td>11.3845</td>
+      <td>6.80294</td>
+      <td>1.46476</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>12.0311</td>
+      <td>4.59869</td>
+      <td>2.02183</td>
+      <td>4.63261</td>
+      <td>2.28752</td>
+      <td>2.23744</td>
+      <td>3.5116</td>
+      <td>3.25854</td>
+      <td>2.74418</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2006</th>
+      <td>NaN</td>
+      <td>3.76732</td>
+      <td>3.047</td>
+      <td>2.70328</td>
+      <td>-1.44016</td>
+      <td>19.9719</td>
+      <td>12.4262</td>
+      <td>-1.08528</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>15.3692</td>
+      <td>0.302325</td>
+      <td>1.94853</td>
+      <td>4.2006</td>
+      <td>1.65712</td>
+      <td>2.1426</td>
+      <td>3.02042</td>
+      <td>2.8202</td>
+      <td>1.87801</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2006</th>
+      <td>NaN</td>
+      <td>4.94181</td>
+      <td>1.53925</td>
+      <td>0.965</td>
+      <td>3.83004</td>
+      <td>19.5482</td>
+      <td>8.2859</td>
+      <td>-0.0701524</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.98522</td>
+      <td>3.17033</td>
+      <td>2.81255</td>
+      <td>3.41228</td>
+      <td>1.69054</td>
+      <td>2.48871</td>
+      <td>3.16899</td>
+      <td>3.38875</td>
+      <td>3.15321</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2006</th>
+      <td>NaN</td>
+      <td>6.74636</td>
+      <td>2.49532</td>
+      <td>2.18772</td>
+      <td>2.72003</td>
+      <td>4.16023</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.85173</td>
+      <td>0.187448</td>
+      <td>...</td>
+      <td>2.96629</td>
+      <td>4.25374</td>
+      <td>3.64113</td>
+      <td>4.53634</td>
+      <td>0.236902</td>
+      <td>2.24581</td>
+      <td>4.22414</td>
+      <td>2.82965</td>
+      <td>2.90989</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2006</th>
+      <td>NaN</td>
+      <td>5.35903</td>
+      <td>1.81743</td>
+      <td>1.98236</td>
+      <td>1.02392</td>
+      <td>-6.68521</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.05995</td>
+      <td>0.258353</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>4.54468</td>
+      <td>3.92087</td>
+      <td>2.69209</td>
+      <td>3.02909</td>
+      <td>1.2821</td>
+      <td>2.37251</td>
+      <td>1.48477</td>
+      <td>1.75532</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2007</th>
+      <td>NaN</td>
+      <td>3.67505</td>
+      <td>2.78479</td>
+      <td>4.02452</td>
+      <td>6.11833</td>
+      <td>13.6367</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.06139</td>
+      <td>4.58896</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>2.60827</td>
+      <td>4.8482</td>
+      <td>3.8511</td>
+      <td>5.90389</td>
+      <td>2.84991</td>
+      <td>2.27919</td>
+      <td>3.98958</td>
+      <td>3.13955</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2007</th>
+      <td>NaN</td>
+      <td>3.85544</td>
+      <td>0.0914296</td>
+      <td>1.02958</td>
+      <td>3.73112</td>
+      <td>7.84227</td>
+      <td>7.84676</td>
+      <td>0.310989</td>
+      <td>2.38654</td>
+      <td>1.2213</td>
+      <td>...</td>
+      <td>9.16496</td>
+      <td>1.66124</td>
+      <td>4.63268</td>
+      <td>3.1562</td>
+      <td>2.41989</td>
+      <td>2.88139</td>
+      <td>1.12054</td>
+      <td>2.61154</td>
+      <td>2.32661</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2007</th>
+      <td>NaN</td>
+      <td>2.15462</td>
+      <td>3.88332</td>
+      <td>0.111253</td>
+      <td>-0.245675</td>
+      <td>1.51427</td>
+      <td>15.8269</td>
+      <td>3.55241</td>
+      <td>2.90663</td>
+      <td>1.05941</td>
+      <td>...</td>
+      <td>2.22965</td>
+      <td>1.86837</td>
+      <td>3.86859</td>
+      <td>2.24269</td>
+      <td>-1.33069</td>
+      <td>2.27619</td>
+      <td>3.87688</td>
+      <td>2.0769</td>
+      <td>2.24263</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Q3-2013</th>
+      <td>NaN</td>
+      <td>1.10181</td>
+      <td>1.49795</td>
+      <td>-1.08812</td>
+      <td>2.2229</td>
+      <td>6.34221</td>
+      <td>3.44309</td>
+      <td>0.806226</td>
+      <td>NaN</td>
+      <td>1.94384</td>
+      <td>...</td>
+      <td>4.88586</td>
+      <td>5.63824</td>
+      <td>1.91326</td>
+      <td>NAN</td>
+      <td>2.6124</td>
+      <td>0.0963318</td>
+      <td>3.80362</td>
+      <td>1.93363</td>
+      <td>1.71199</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2013</th>
+      <td>NaN</td>
+      <td>2.65184</td>
+      <td>0.0211253</td>
+      <td>3.02719</td>
+      <td>0.117452</td>
+      <td>4.24562</td>
+      <td>0.887075</td>
+      <td>2.62807</td>
+      <td>NC</td>
+      <td>2.02352</td>
+      <td>...</td>
+      <td>4.7996</td>
+      <td>-1.38831</td>
+      <td>0.63067</td>
+      <td>NAN</td>
+      <td>1.66755</td>
+      <td>-0.612076</td>
+      <td>1.1518</td>
+      <td>2.37361</td>
+      <td>1.74732</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2014</th>
+      <td>NaN</td>
+      <td>1.69654</td>
+      <td>4.2112</td>
+      <td>0.360091</td>
+      <td>5.77432</td>
+      <td>6.14234</td>
+      <td>6.94411</td>
+      <td>0.817026</td>
+      <td>1.49382</td>
+      <td>1.78496</td>
+      <td>...</td>
+      <td>-2.45151</td>
+      <td>1.0174</td>
+      <td>0.519796</td>
+      <td>NaN</td>
+      <td>1.11715</td>
+      <td>-1.0555</td>
+      <td>2.16633</td>
+      <td>1.48243</td>
+      <td>2.36859</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2014</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.94265</td>
+      <td>-0.78661</td>
+      <td>1.38718</td>
+      <td>7.41922</td>
+      <td>0.931527</td>
+      <td>1.69665</td>
+      <td>0.0539681</td>
+      <td>1.67275</td>
+      <td>...</td>
+      <td>0.324555</td>
+      <td>-0.74224</td>
+      <td>0.587017</td>
+      <td>NaN</td>
+      <td>1.927</td>
+      <td>-0.809462</td>
+      <td>2.67947</td>
+      <td>2.5271</td>
+      <td>1.94012</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2014</th>
+      <td>NaN</td>
+      <td>NAN</td>
+      <td>1.38758</td>
+      <td>2.35888</td>
+      <td>1.28764</td>
+      <td>6.49007</td>
+      <td>0.581491</td>
+      <td>2.44679</td>
+      <td>0.402424</td>
+      <td>1.37318</td>
+      <td>...</td>
+      <td>-1.63456</td>
+      <td>2.41736</td>
+      <td>0.69798</td>
+      <td>NaN</td>
+      <td>2.75048</td>
+      <td>-0.462829</td>
+      <td>0.696147</td>
+      <td>1.90518</td>
+      <td>1.36808</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2014</th>
+      <td>NaN</td>
+      <td>NAN</td>
+      <td>NaN</td>
+      <td>0.0185071</td>
+      <td>-2.75208</td>
+      <td>NC</td>
+      <td>3.39468</td>
+      <td>1.00172</td>
+      <td>NaN</td>
+      <td>1.77079</td>
+      <td>...</td>
+      <td>-6.43085</td>
+      <td>-1.65982</td>
+      <td>-1.89053</td>
+      <td>NaN</td>
+      <td>1.23748</td>
+      <td>-1.21125</td>
+      <td>-2.40394</td>
+      <td>0.788842</td>
+      <td>0.957506</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2015</th>
+      <td>NaN</td>
+      <td>-0.3117</td>
+      <td>1.47795</td>
+      <td>0.53314</td>
+      <td>-3.72668</td>
+      <td>8.18762</td>
+      <td>-1.92832</td>
+      <td>2.54671</td>
+      <td>1.92688</td>
+      <td>3.09747</td>
+      <td>...</td>
+      <td>-2.64352</td>
+      <td>5.5106</td>
+      <td>4.02882</td>
+      <td>NaN</td>
+      <td>3.75605</td>
+      <td>-0.0763533</td>
+      <td>0.210877</td>
+      <td>-0.328568</td>
+      <td>1.59511</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2015</th>
+      <td>NaN</td>
+      <td>-2.03875</td>
+      <td>3.61959</td>
+      <td>0.437912</td>
+      <td>1.24262</td>
+      <td>2.54019</td>
+      <td>0.470746</td>
+      <td>1.09937</td>
+      <td>0.588653</td>
+      <td>1.84642</td>
+      <td>...</td>
+      <td>-0.173209</td>
+      <td>1.87521</td>
+      <td>0.430759</td>
+      <td>NaN</td>
+      <td>1.81121</td>
+      <td>-0.547417</td>
+      <td>4.56577</td>
+      <td>2.28642</td>
+      <td>2.02005</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2015</th>
+      <td>NaN</td>
+      <td>0.688996</td>
+      <td>1.91813</td>
+      <td>3.72057</td>
+      <td>1.73759</td>
+      <td>3.16092</td>
+      <td>4.03834</td>
+      <td>1.61957</td>
+      <td>1.0075</td>
+      <td>0.982502</td>
+      <td>...</td>
+      <td>-2.2467</td>
+      <td>2.4836</td>
+      <td>0.719993</td>
+      <td>NaN</td>
+      <td>0.843219</td>
+      <td>-1.24101</td>
+      <td>-1.45418</td>
+      <td>1.45416</td>
+      <td>1.43233</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2015</th>
+      <td>NaN</td>
+      <td>-1.30209</td>
+      <td>2.0136</td>
+      <td>1.15865</td>
+      <td>-2.07123</td>
+      <td>1.16053</td>
+      <td>0.554024</td>
+      <td>0.44078</td>
+      <td>0.418492</td>
+      <td>2.1743</td>
+      <td>...</td>
+      <td>-6.93489</td>
+      <td>1.16041</td>
+      <td>1.48965</td>
+      <td>-1.02749</td>
+      <td>0.694627</td>
+      <td>-0.110296</td>
+      <td>-1.08187</td>
+      <td>0.108266</td>
+      <td>0.817701</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2016</th>
+      <td>NaN</td>
+      <td>-0.387729</td>
+      <td>1.25421</td>
+      <td>-1.15024</td>
+      <td>NaN</td>
+      <td>10.1241</td>
+      <td>-0.206872</td>
+      <td>-2.99582</td>
+      <td>0.333629</td>
+      <td>1.83142</td>
+      <td>...</td>
+      <td>-4.37082</td>
+      <td>3.42826</td>
+      <td>1.29059</td>
+      <td>0.860112</td>
+      <td>1.22983</td>
+      <td>-1.57671</td>
+      <td>5.10416</td>
+      <td>-0.343566</td>
+      <td>1.18159</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2016</th>
+      <td>NaN</td>
+      <td>1.79047</td>
+      <td>-0.461489</td>
+      <td>6.11189</td>
+      <td>NaN</td>
+      <td>0.771329</td>
+      <td>1.10891</td>
+      <td>3.27997</td>
+      <td>-0.744996</td>
+      <td>0.542253</td>
+      <td>...</td>
+      <td>99999999999</td>
+      <td>-0.0145045</td>
+      <td>-2.30108</td>
+      <td>0.827617</td>
+      <td>2.32833</td>
+      <td>0.484589</td>
+      <td>2.83483</td>
+      <td>2.78294</td>
+      <td>1.81609</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2016</th>
+      <td>NaN</td>
+      <td>4.70414</td>
+      <td>1.8933</td>
+      <td>1.56751</td>
+      <td>NaN</td>
+      <td>6.81703</td>
+      <td>1.81106</td>
+      <td>-0.614575</td>
+      <td>0.0230209</td>
+      <td>0.284844</td>
+      <td>...</td>
+      <td>0.687464</td>
+      <td>1.59578</td>
+      <td>1.8549</td>
+      <td>0.771901</td>
+      <td>2.96407</td>
+      <td>-0.629969</td>
+      <td>1.57633</td>
+      <td>1.49969</td>
+      <td>1.26298</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2016</th>
+      <td>NaN</td>
+      <td>9.51771</td>
+      <td>1.85997</td>
+      <td>1.09955</td>
+      <td>NaN</td>
+      <td>4.73178</td>
+      <td>6.78334</td>
+      <td>0.328838</td>
+      <td>0.130227</td>
+      <td>2.04751</td>
+      <td>...</td>
+      <td>6.30561</td>
+      <td>0.947484</td>
+      <td>3.90325</td>
+      <td>0.320466</td>
+      <td>3.88052</td>
+      <td>-0.302088</td>
+      <td>2.9129</td>
+      <td>2.07796</td>
+      <td>3.01762</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2017</th>
+      <td>NaN</td>
+      <td>6.37366</td>
+      <td>0.728087</td>
+      <td>1.84411</td>
+      <td>NaN</td>
+      <td>6.1606</td>
+      <td>4.25537</td>
+      <td>2.12512</td>
+      <td>1.67548</td>
+      <td>0.773363</td>
+      <td>...</td>
+      <td>9.71555</td>
+      <td>1.5021</td>
+      <td>-0.880378</td>
+      <td>0.910223</td>
+      <td>1.46027</td>
+      <td>-0.338181</td>
+      <td>3.15557</td>
+      <td>2.09713</td>
+      <td>2.16544</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2017</th>
+      <td>NaN</td>
+      <td>-3.77928</td>
+      <td>1.57525</td>
+      <td>1.97755</td>
+      <td>NaN</td>
+      <td>4.8005</td>
+      <td>3.81394</td>
+      <td>-0.322859</td>
+      <td>1.1426</td>
+      <td>3.01379</td>
+      <td>...</td>
+      <td>-2.70037</td>
+      <td>2.35196</td>
+      <td>2.94757</td>
+      <td>NaN</td>
+      <td>2.30357</td>
+      <td>-1.50812</td>
+      <td>0.406578</td>
+      <td>1.14105</td>
+      <td>1.64493</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2017</th>
+      <td>NaN</td>
+      <td>1.52522</td>
+      <td>1.09891</td>
+      <td>0.178458</td>
+      <td>0.935363</td>
+      <td>4.58479</td>
+      <td>3.95939</td>
+      <td>1.55781</td>
+      <td>0.332214</td>
+      <td>2.0477</td>
+      <td>...</td>
+      <td>-0.381773</td>
+      <td>1.87274</td>
+      <td>2.22324</td>
+      <td>0.384435</td>
+      <td>-0.377411</td>
+      <td>-0.204118</td>
+      <td>2.17149</td>
+      <td>1.93716</td>
+      <td>2.19269</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2017</th>
+      <td>NaN</td>
+      <td>1.02308</td>
+      <td>1.19203</td>
+      <td>0.699004</td>
+      <td>4.6477</td>
+      <td>0.0629218</td>
+      <td>2.14264</td>
+      <td>1.48584</td>
+      <td>0.10443</td>
+      <td>1.15923</td>
+      <td>...</td>
+      <td>7.32538</td>
+      <td>1.54427</td>
+      <td>2.71598</td>
+      <td>2.86066</td>
+      <td>3.42499</td>
+      <td>1.1857</td>
+      <td>2.46653</td>
+      <td>2.71786</td>
+      <td>2.42088</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2018</th>
+      <td>NaN</td>
+      <td>4.72115</td>
+      <td>2.17969</td>
+      <td>0.559993</td>
+      <td>1.67662</td>
+      <td>1.47675</td>
+      <td>7.01571</td>
+      <td>3.07054</td>
+      <td>1.64641</td>
+      <td>1.10733</td>
+      <td>...</td>
+      <td>10.9247</td>
+      <td>1.50117</td>
+      <td>2.7668</td>
+      <td>-1.55907</td>
+      <td>3.24233</td>
+      <td>0.693224</td>
+      <td>2.415</td>
+      <td>2.02455</td>
+      <td>2.25821</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2018</th>
+      <td>NaN</td>
+      <td>1.25691</td>
+      <td>1.51018</td>
+      <td>2.95033</td>
+      <td>1.08738</td>
+      <td>3.01839</td>
+      <td>1e+11</td>
+      <td>1.62498</td>
+      <td>0.66312</td>
+      <td>2.84517</td>
+      <td>...</td>
+      <td>5.1911</td>
+      <td>0.440901</td>
+      <td>2.74079</td>
+      <td>2.28992</td>
+      <td>NaN</td>
+      <td>1.12216</td>
+      <td>1.04956</td>
+      <td>3.31377</td>
+      <td>2.59544</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2018</th>
+      <td>NaN</td>
+      <td>3.10232</td>
+      <td>2.1259</td>
+      <td>-0.817521</td>
+      <td>2.27963</td>
+      <td>0.694751</td>
+      <td>8.73773</td>
+      <td>3.02099</td>
+      <td>1.5119</td>
+      <td>2.51248</td>
+      <td>...</td>
+      <td>7.81524</td>
+      <td>2.06825</td>
+      <td>0.981445</td>
+      <td>0.631539</td>
+      <td>2.00289</td>
+      <td>1.18082</td>
+      <td>NaN</td>
+      <td>1.50761</td>
+      <td>2.71722</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2018</th>
+      <td>NaN</td>
+      <td>4.07793</td>
+      <td>0.522983</td>
+      <td>4.25275</td>
+      <td>-3.05727</td>
+      <td>1.90465</td>
+      <td>-0.00851452</td>
+      <td>0.657962</td>
+      <td>1.27315</td>
+      <td>1.19612</td>
+      <td>...</td>
+      <td>-2.8642</td>
+      <td>0.72181</td>
+      <td>-0.311881</td>
+      <td>1.76589</td>
+      <td>3.35129</td>
+      <td>0.659118</td>
+      <td>1.7852</td>
+      <td>1.86065</td>
+      <td>1.72424</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2019</th>
+      <td>NaN</td>
+      <td>1.29701</td>
+      <td>2.01399</td>
+      <td>-0.087326</td>
+      <td>1.43348</td>
+      <td>1.90881</td>
+      <td>4.53737</td>
+      <td>6.68007</td>
+      <td>1.61341</td>
+      <td>1.45468</td>
+      <td>...</td>
+      <td>1.0859</td>
+      <td>1.07095</td>
+      <td>3.48027</td>
+      <td>-1.26691</td>
+      <td>1.43534</td>
+      <td>-1.22536</td>
+      <td>1.87427</td>
+      <td>0.648755</td>
+      <td>1.47988</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2019</th>
+      <td>NaN</td>
+      <td>2.58593</td>
+      <td>1e+11</td>
+      <td>1.71189</td>
+      <td>1.65467</td>
+      <td>2.97658</td>
+      <td>3.07269</td>
+      <td>NaN</td>
+      <td>0.299969</td>
+      <td>2.31266</td>
+      <td>...</td>
+      <td>2.78605</td>
+      <td>1.13984</td>
+      <td>3.45442</td>
+      <td>1.79356</td>
+      <td>2.0407</td>
+      <td>0.375814</td>
+      <td>3.16003</td>
+      <td>1.73052</td>
+      <td>2.58466</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2019</th>
+      <td>NaN</td>
+      <td>2.37583</td>
+      <td>1e+11</td>
+      <td>1.5108</td>
+      <td>1.65523</td>
+      <td>3.22332</td>
+      <td>3.41831</td>
+      <td>1.69703</td>
+      <td>1.29423</td>
+      <td>2.01484</td>
+      <td>...</td>
+      <td>2.19308</td>
+      <td>1.20646</td>
+      <td>3.53132</td>
+      <td>1.68285</td>
+      <td>2.08312</td>
+      <td>0.563606</td>
+      <td>2.66816</td>
+      <td>1.95</td>
+      <td>2.33377</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2019</th>
+      <td>NaN</td>
+      <td>2.36577</td>
+      <td>1e+11</td>
+      <td>1.51085</td>
+      <td>1.69499</td>
+      <td>3.13883</td>
+      <td>3.41727</td>
+      <td>1.6977</td>
+      <td>1.28109</td>
+      <td>2.00503</td>
+      <td>...</td>
+      <td>2.09162</td>
+      <td>1.4845</td>
+      <td>3.51542</td>
+      <td>1.55086</td>
+      <td>2.12531</td>
+      <td>0.730398</td>
+      <td>1.90228</td>
+      <td>2.04677</td>
+      <td>2.02996</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2020</th>
+      <td>NaN</td>
+      <td>2.50515</td>
+      <td>2.61205</td>
+      <td>1.92881</td>
+      <td>1.69512</td>
+      <td>3.19745</td>
+      <td>NaN</td>
+      <td>1.89875</td>
+      <td>1.24354</td>
+      <td>2.04935</td>
+      <td>...</td>
+      <td>2.21939</td>
+      <td>1.60529</td>
+      <td>2.14564</td>
+      <td>1.39593</td>
+      <td>2.14632</td>
+      <td>0.895692</td>
+      <td>1.8677</td>
+      <td>2.17608</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2020</th>
+      <td>NaN</td>
+      <td>2.58372</td>
+      <td>1.97637</td>
+      <td>2.11382</td>
+      <td>1.69526</td>
+      <td>3.13447</td>
+      <td>3.31696</td>
+      <td>1.89878</td>
+      <td>1.25772</td>
+      <td>2.05324</td>
+      <td>...</td>
+      <td>2.21316</td>
+      <td>1.63494</td>
+      <td>2.18572</td>
+      <td>1.52492</td>
+      <td>2.14601</td>
+      <td>0.921188</td>
+      <td>1.88209</td>
+      <td>2.2359</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2020</th>
+      <td>NaN</td>
+      <td>2.66356</td>
+      <td>1.66043</td>
+      <td>2.1168</td>
+      <td>1.69539</td>
+      <td>3.011</td>
+      <td>3.31499</td>
+      <td>1.91465</td>
+      <td>1.19435</td>
+      <td>2.05706</td>
+      <td>...</td>
+      <td>2.30848</td>
+      <td>NaN</td>
+      <td>2.21753</td>
+      <td>1.54641</td>
+      <td>2.14572</td>
+      <td>1.12194</td>
+      <td>1.8504</td>
+      <td>2.14891</td>
+      <td>2.4434</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2020</th>
+      <td>NaN</td>
+      <td>2.75458</td>
+      <td>-0.212443</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.30824</td>
+      <td>1.91427</td>
+      <td>2.24929</td>
+      <td>1.54528</td>
+      <td>2.14542</td>
+      <td>1.28234</td>
+      <td>1.8404</td>
+      <td>2.08765</td>
+      <td>1.85049</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>83 rows × 33 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>我們可以看到這份資料表有許多問題需要我們處理</p>
+<ol>
+<li>第1列和第2列是我們不感興趣的 (我們一律從0開始數)</li>
+<li>第0行和最後一行我們也不感興趣</li>
+<li>Column的名字應該要是國家名而不是數字</li>
+<li>這個資料表上有缺失值和極端值</li>
+<li>這個資料表的index目前只是字串而已，我們利用pd.to_datetime()變成時間戳記</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>1. 第1列和第2列是我們不感興趣的 (我們一律從0開始數)</strong></p>
+<p>我們來將他們刪除</p>
+<p>為了省版面我將使用.head()這個method來顯示部分的表格，默認是五列</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;刪除前:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">())</span><span class="c1">#只顯示前五列</span>
+<span class="c1">#----------------------------------------------</span>
+<span class="n">rawData</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="c1">#將第一列和第二列刪除</span>
+<span class="c1">#----------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;刪除後:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">())</span><span class="c1">#只顯示前五列</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>刪除前:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+      <th>32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Country</td>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>...</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+      <td>Data extracted on 28 Oct 2019 02:08 UTC (GMT) ...</td>
+    </tr>
+    <tr>
+      <th>Unnamed: 1</th>
+      <td>Unit</td>
+      <td>Percentage, 2016-17</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2012</td>
+      <td>Percentage, 2013</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2014</td>
+      <td>Percentage, 2010</td>
+      <td>...</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2011</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2017</td>
+      <td>Percentage, 2010</td>
+      <td>Percentage, 2016</td>
+      <td>Percentage, 2012</td>
+      <td>Percentage, 2015</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Unnamed: 2</th>
+      <td>NaN</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>...</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>i</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>NaN</td>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>...</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>NaN</td>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>...</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 33 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>刪除後:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+      <th>32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Country</td>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>...</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+      <td>Data extracted on 28 Oct 2019 02:08 UTC (GMT) ...</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>NaN</td>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>...</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>NaN</td>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>...</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>NaN</td>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>...</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>NaN</td>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>...</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 33 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>rawData = rawData.drop(rawData.index[1:3])
+我們逐步講解這個指令在做什麼</p>
+<ul>
+<li>rawData.index[1:3]<ul>
+<li>rawData.index會將所有的index列出來，還記得[1:3]嗎? 起始值1終止值3 意思是我們取其中第1,第2個(從0開始數)</li>
+</ul>
+</li>
+<li>rawData.drop(rawData.index[1:3])<ul>
+<li>rawData.drop()為清除某列/行的指令，()裡面通常不特別寫就是放index的名字(清除列)，以這個例子來說此行等同於rawData.drop(['Unnamed: 1', 'Unnamed: 2'])</li>
+</ul>
+</li>
+<li>rawData = rawData.drop(rawData.index[1:3])<ul>
+<li>所以這行就是將清除完第一列第二列的資料表賦予給rawData，也就是說rawData就是清除完成的資料表</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2. 第0行和最後一行我們也不感興趣</strong></p>
+<p>我們也將其刪除</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;刪除前:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1">#----------------------------------------------</span>
+<span class="n">rawData</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#將第0行刪除</span>
+<span class="n">rawData</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rawData</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1">#刪除最後一行的資料 </span>
+<span class="c1">#----------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;刪除後:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>刪除前:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+      <th>32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Country</td>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>...</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+      <td>Data extracted on 28 Oct 2019 02:08 UTC (GMT) ...</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>NaN</td>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>...</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>NaN</td>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>...</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>NaN</td>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>...</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>NaN</td>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>...</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 33 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>刪除後:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>...</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>Greece</td>
+      <td>...</td>
+      <td>New Zealand</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>8.27744</td>
+      <td>...</td>
+      <td>5.22352</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>5.05338</td>
+      <td>...</td>
+      <td>1.39707</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>3.61555</td>
+      <td>...</td>
+      <td>-0.761089</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>2.4386</td>
+      <td>...</td>
+      <td>7.212</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 31 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>rawData = rawData.drop(columns=[0])<ul>
+<li>上面我們說drop()裡面默認是放列，但如果我們要刪除行的話就要指定columns=[行的名字]，這個例子中第0行剛好是0 就輸入0就可以了，實際上=後方是一個list，可以將想刪除的行都放進去。</li>
+</ul>
+</li>
+<li>rawData = rawData.drop(columns=rawData.columns[-1])<ul>
+<li>這個跟上面那行做的事情其實一樣，差別在於說今天我們要刪除的是最後一行，但是我們除了看最後一行的名字叫什麼之外，也可以利用indexing來指定，rawData.columns會將所有columns的名字按順序列出來，我們指定[-1]也就是最後一個名字，再將它drop掉就可以了。</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3. Column的名字應該要是國家名而不是數字</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="c1">#將整列columns的名字換成第0列</span>
+<span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Time</th>
+      <th>Australia</th>
+      <th>Austria</th>
+      <th>Belgium</th>
+      <th>Canada</th>
+      <th>Chile</th>
+      <th>Estonia</th>
+      <th>Finland</th>
+      <th>France</th>
+      <th>Germany</th>
+      <th>Greece</th>
+      <th>...</th>
+      <th>New Zealand</th>
+      <th>Norway</th>
+      <th>Portugal</th>
+      <th>Slovenia</th>
+      <th>Spain</th>
+      <th>Sweden</th>
+      <th>Switzerland</th>
+      <th>United Kingdom</th>
+      <th>United States</th>
+      <th>OECD - Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Time</th>
+      <td>Australia</td>
+      <td>Austria</td>
+      <td>Belgium</td>
+      <td>Canada</td>
+      <td>Chile</td>
+      <td>Estonia</td>
+      <td>Finland</td>
+      <td>France</td>
+      <td>Germany</td>
+      <td>Greece</td>
+      <td>...</td>
+      <td>New Zealand</td>
+      <td>Norway</td>
+      <td>Portugal</td>
+      <td>Slovenia</td>
+      <td>Spain</td>
+      <td>Sweden</td>
+      <td>Switzerland</td>
+      <td>United Kingdom</td>
+      <td>United States</td>
+      <td>OECD - Total</td>
+    </tr>
+    <tr>
+      <th>Q1-2001</th>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>8.27744</td>
+      <td>...</td>
+      <td>5.22352</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>5.05338</td>
+      <td>...</td>
+      <td>1.39707</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>3.61555</td>
+      <td>...</td>
+      <td>-0.761089</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>2.4386</td>
+      <td>...</td>
+      <td>7.212</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 31 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>rawData.iloc[0,:]<ul>
+<li>.iloc是選取某行某列的方式，格式是這樣子的.iloc[列,行]，而參數是從0開始數，以下舉幾個範例方便理解</li>
+<li>df.iloc[0,4] 取第0列第4行的值</li>
+<li>df.iloc[1:3,2:4] 取第一列到第二列、第二行到第三行的DataFrame。</li>
+<li>df.iloc[2,:] 取第二列的Series</li>
+</ul>
+</li>
+<li>rawData.columns = rawData.iloc[0,:]<ul>
+<li>上面說到rawData.columns會按順序列出所有column的名字，事實上我們也可以直接修改它，只要等號後方的資料長度和.columns的長度一樣就可以直接修改，這個例子我們用rawData的第0列當作新的column名。</li>
+</ul>
+</li>
+</ul>
+<p>換完columns的名字之後我們發現第0列是多餘的，所以我們要將其刪除</p>
+<p>利用上面學到的drop()刪除第一列</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>iloc的範例</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rawData.iloc[2,4]&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rawData.iloc[2,1:5]&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rawData.iloc[2:4,1:5]&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>rawData.iloc[2,4]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>6.572204632</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>float</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-----------------------------------
+rawData.iloc[2,1:5]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>Time
+Austria    1.12305
+Belgium    1.13254
+Canada    -4.52832
+Chile       6.5722
+Name: Q3-2001, dtype: object</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>pandas.core.series.Series</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-----------------------------------
+rawData.iloc[2:4,1:5]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Time</th>
+      <th>Austria</th>
+      <th>Belgium</th>
+      <th>Canada</th>
+      <th>Chile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Q3-2001</th>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rawData</span> <span class="o">=</span> <span class="n">rawData</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="c1">#刪除第0列</span>
+<span class="n">rawData</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Time</th>
+      <th>Australia</th>
+      <th>Austria</th>
+      <th>Belgium</th>
+      <th>Canada</th>
+      <th>Chile</th>
+      <th>Estonia</th>
+      <th>Finland</th>
+      <th>France</th>
+      <th>Germany</th>
+      <th>Greece</th>
+      <th>...</th>
+      <th>New Zealand</th>
+      <th>Norway</th>
+      <th>Portugal</th>
+      <th>Slovenia</th>
+      <th>Spain</th>
+      <th>Sweden</th>
+      <th>Switzerland</th>
+      <th>United Kingdom</th>
+      <th>United States</th>
+      <th>OECD - Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Q1-2001</th>
+      <td>7.28418</td>
+      <td>1.7534</td>
+      <td>-0.564691</td>
+      <td>3.93964</td>
+      <td>0.418974</td>
+      <td>-1.29255</td>
+      <td>8.44185</td>
+      <td>1.6437</td>
+      <td>2.79468</td>
+      <td>8.27744</td>
+      <td>...</td>
+      <td>5.22352</td>
+      <td>-5.8107</td>
+      <td>4.2542</td>
+      <td>10.2076</td>
+      <td>4.05515</td>
+      <td>2.53332</td>
+      <td>0.695001</td>
+      <td>-1.77627</td>
+      <td>2.4674</td>
+      <td>3.82516</td>
+    </tr>
+    <tr>
+      <th>Q2-2001</th>
+      <td>0.58682</td>
+      <td>1.84369</td>
+      <td>6.2919</td>
+      <td>-0.0582597</td>
+      <td>6.54285</td>
+      <td>10.9559</td>
+      <td>0.726557</td>
+      <td>2.46209</td>
+      <td>0.904227</td>
+      <td>5.05338</td>
+      <td>...</td>
+      <td>1.39707</td>
+      <td>4.19045</td>
+      <td>3.97901</td>
+      <td>9.00237</td>
+      <td>4.63821</td>
+      <td>6.33931</td>
+      <td>1.45361</td>
+      <td>4.08673</td>
+      <td>2.44174</td>
+      <td>3.74362</td>
+    </tr>
+    <tr>
+      <th>Q3-2001</th>
+      <td>3.90212</td>
+      <td>1.12305</td>
+      <td>1.13254</td>
+      <td>-4.52832</td>
+      <td>6.5722</td>
+      <td>4.84368</td>
+      <td>0.471672</td>
+      <td>1.80337</td>
+      <td>2.37573</td>
+      <td>3.61555</td>
+      <td>...</td>
+      <td>-0.761089</td>
+      <td>-10.4822</td>
+      <td>3.27869</td>
+      <td>8.0229</td>
+      <td>3.85698</td>
+      <td>-2.49597</td>
+      <td>-0.414302</td>
+      <td>-1.67995</td>
+      <td>1.6189</td>
+      <td>1.76494</td>
+    </tr>
+    <tr>
+      <th>Q4-2001</th>
+      <td>1.23872</td>
+      <td>2.70655</td>
+      <td>1.58008</td>
+      <td>-3.15863</td>
+      <td>2.57014</td>
+      <td>8.89263</td>
+      <td>-0.342922</td>
+      <td>2.1941</td>
+      <td>2.5977</td>
+      <td>2.4386</td>
+      <td>...</td>
+      <td>7.212</td>
+      <td>-10.0371</td>
+      <td>4.81698</td>
+      <td>6.38782</td>
+      <td>4.33468</td>
+      <td>5.0622</td>
+      <td>-0.597514</td>
+      <td>1.72957</td>
+      <td>1.32943</td>
+      <td>2.12555</td>
+    </tr>
+    <tr>
+      <th>Q1-2002</th>
+      <td>6.52146</td>
+      <td>-1.94343</td>
+      <td>1.39934</td>
+      <td>1.81334</td>
+      <td>-0.769914</td>
+      <td>2.46134</td>
+      <td>2.17021</td>
+      <td>2.7127</td>
+      <td>1.10962</td>
+      <td>4.4303</td>
+      <td>...</td>
+      <td>0.71429</td>
+      <td>-0.259495</td>
+      <td>3.88159</td>
+      <td>10.9933</td>
+      <td>3.73501</td>
+      <td>0.371995</td>
+      <td>-1.35321</td>
+      <td>3.13274</td>
+      <td>1.3245</td>
+      <td>3.01703</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 31 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4. 這個資料表上有缺失值和極端值</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
 </div>
 </div>
 
