@@ -13216,7 +13216,7 @@ e的type: &lt;class &#39;NoneType&#39;&gt;
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;加減乘除就跟你們想的一樣，比較特別的是&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3/2 = &quot;</span><span class="p">,</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#除</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3//2 = &quot;</span><span class="p">,</span><span class="mi">3</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#整除</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3%2 = &quot;</span><span class="p">,</span><span class="mi">3</span><span class="o">%</span><span class="k">2</span>)# 取餘數
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3%2 = &quot;</span><span class="p">,</span><span class="mi">3</span><span class="o">%</span><span class="k">2</span>) #取餘數
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2**3 = &quot;</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="c1">#次方</span>
 </pre></div>
 
@@ -13898,7 +13898,6 @@ else:
 <p>range(起始位置:終止位置:間隔)</p>
 <p>不過你直接印出來是顯示不出來裡面所有元素的</p>
 <p>所以我們要看裡面的值可以將它轉成list(但使用它的時候並不需要轉化 這個只是讓我們看裡面怎麼運作)</p>
-<p>有興趣知道為什麼你可以去google: __str__ __repr__</p>
 
 </div>
 </div>
@@ -13958,7 +13957,8 @@ else:
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range(5) = &quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range(3,5) = &quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range(0,10,2) = &quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range(-1,-10,-1) = &quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span> <span class="c1">#當然也可以倒著數 但是起點和終點就要特別注意了</span>
+<span class="c1">#當然也可以倒著數 但是起點和終點就要特別注意了</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;range(-1,-10,-1) = &quot;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span> 
 </pre></div>
 
     </div>
@@ -18618,12 +18618,15 @@ dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#這邊的想法是掃描每一行每一列，只要它的type不是float，我們就印出它的座標並將它抓出來放進nan_list</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#這邊的想法是掃描每一行每一列，只要它的type不是float，</span>
+<span class="c1">#我們就印出它的座標並將它抓出來放進nan_list</span>
 <span class="n">nan_list</span> <span class="o">=</span> <span class="p">[]</span><span class="c1">#宣告一個空list 拿來裝缺失值</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">index</span><span class="p">)):</span> <span class="c1">#len()是取得某個結構的長度，再這邊就是取得列的長度</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">index</span><span class="p">)):</span> 
+    <span class="c1">#len()是取得某個結構的長度，再這邊就是取得列的長度</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">columns</span><span class="p">)):</span>
-        <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">):</span>  <span class="c1"># 如果第i列第j行的值的type不等於float就執行</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>  <span class="c1">#印出座標</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">):</span>  
+            <span class="c1">#如果第i列第j行的值的type不等於float就執行</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="c1">#印出座標</span>
             <span class="n">nan_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span> <span class="c1"># 將第i列第j行的值加入nanlist</span>
 </pre></div>
 
@@ -18713,7 +18716,8 @@ dtype: int64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#接著我們利用np.unique()來將不重複的值抓出來</span>
-<span class="c1">#這步可有可無，原因是我們等一下是要將這個清單給pd.read_excel()重新讀檔使用，而裡面nan_values= 所需要的結構有重複的值是沒關係的</span>
+<span class="c1">#這步可有可無，原因是我們等一下是要將這個清單給pd.read_excel()重新讀檔使用</span>
+<span class="c1">#而裡面nan_values= 所需要的結構有重複的值是沒關係的</span>
 <span class="n">nan_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">nan_list</span><span class="p">)</span>
 <span class="n">nan_list</span>
 <span class="c1">#要注意的是np.unique()會幫你將list轉換成array，不過pandas也支援array所以沒關係</span>
@@ -18759,10 +18763,11 @@ dtype: int64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span> 
-<span class="n">nanlist</span><span class="o">=</span><span class="p">[]</span> <span class="c1"># 建立缺失值清單 </span>
+<span class="n">nanlist</span><span class="o">=</span><span class="p">[]</span> <span class="c1">#建立缺失值清單 </span>
 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">rawData</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> 
-    <span class="c1"># 判斷每一個 column 裡的 element 是否不是 float，並存起來 </span>
-    <span class="n">nanlist</span> <span class="o">=</span> <span class="n">nanlist</span><span class="o">+</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">ii</span><span class="p">]</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">!=</span><span class="nb">float</span><span class="p">]</span> <span class="c1">#list可以用+法將兩個list合併</span>
+    <span class="c1">#判斷每一個 column 裡的 element 是否不是 float，並存起來 </span>
+    <span class="n">nanlist</span> <span class="o">=</span> <span class="n">nanlist</span><span class="o">+</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rawData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">ii</span><span class="p">]</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">!=</span><span class="nb">float</span><span class="p">]</span> 
+    <span class="c1">#list可以用+法將兩個list合併</span>
     <span class="n">ii</span><span class="o">=</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="c1">#每一個迴圈ii都加1，它的意義相當於是目前執行到第幾列</span>
 </pre></div>
 
