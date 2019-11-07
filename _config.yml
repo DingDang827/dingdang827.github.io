@@ -16,7 +16,7 @@
 title: DingDang's Blog
 email: "dingdang827@gmail.com"
 description: >- # this means to ignore newlines until "baseurl:"
-  叮噹的技術筆記
+  叮噹的筆記空間
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
